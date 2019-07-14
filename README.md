@@ -11,4 +11,5 @@ pip 19.0.3
 To install Mox's dependencies perform the following:
 ```
 pip3 install -r requirements.txt
+pip3 install -e .
 ```
