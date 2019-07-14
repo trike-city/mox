@@ -1,18 +1,14 @@
-# Create an Environment
-Create a project folder and a venv folder within:
+# Versions
+```
+$ python3 --version
+Python 3.7.3
 
-On Mac:
-```
-$ python3 -m venv venv
-```
-
-On Windows:
-```
-$ py -3 -m venv venv
+$ pip3 --version
+pip 19.0.3
 ```
 
-Before you work on Mox, activate the corresponding environment:
-
+# Installation
+To install Mox's dependencies perform the following:
 ```
-$ . venv/bin/activate
+pip3 install -r requirements.txt
 ```
