@@ -6,5 +6,5 @@ blueprint = Blueprint('players', __name__)
 
 @blueprint.route('/players', methods=('POST',))
 def create():
-    player = Player.create(request.form)
+    player = Player.create(request.json)
     return make_response(jsonify(player.serialize()), 201)
