@@ -1,21 +1,21 @@
 import os
 
 
-class Config(object):
+class BaseConfig(object):
     TESTING = False
     DEBUG = False
     SECRET_KEY = 'change-me'
 
 
-class ProductionConfig(Config):
-    pass
+class ProductionConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI = os.environ['PROD_DATABASE_URL']
 
 
-class DevelopmentConfig(Config):
+class DevelopmentConfig(BaseConfig):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ['DEV_DATABASE_URL']
 
 
-class TestConfig(Config):
+class TestConfig(BaseConfig):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ['TEST_DATABASE_URL']
