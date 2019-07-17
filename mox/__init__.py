@@ -22,8 +22,9 @@ def __configure_app(app, test_config):
 
 
 def __register_routes(app):
-    from mox.controllers import players_controller
+    from mox.controllers import players_controller, tournaments_controller
     app.register_blueprint(players_controller.blueprint)
+    app.register_blueprint(tournaments_controller.blueprint)
 
 
 def __create_app_folder(app):
