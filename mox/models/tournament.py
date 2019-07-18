@@ -15,5 +15,4 @@ class Tournament:
     def serialize(self):
         return {
             'name': self.name
-            
         }
