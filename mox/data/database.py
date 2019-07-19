@@ -13,13 +13,13 @@ class Database:
     def open(self):
         url = f'postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.name}'
         self.connection = psycopg2.connect(url)
-        self.connection.autocommit = True
         self.cursor = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
     def close(self):
         if not hasattr(self, 'connection'):
             raise ValueError('No connection to close. Did you run open()?')
         else:
+            self.connection.commit()
             self.cursor.close()
             self.connection.close()
 
@@ -33,6 +33,12 @@ class Database:
                 return self.cursor.fetchall()
             else:
                 return True
+
+    def rollback(self):
+        if not hasattr(self, 'connection'):
+            raise ValueError('No connection available. Did you run open()?')
+        else:
+            self.connection.rollback()
 
     @property
     def __records_are_available(self):

@@ -13,7 +13,7 @@ def test_execute():
 
     result = db.execute('SELECT * FROM bad_cards;')
 
-    db.execute('DROP TABLE bad_cards;')
+    db.rollback()
     db.close()
 
     assert result == [{'name': 'Mox Amber'}]
