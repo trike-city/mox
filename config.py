@@ -8,14 +8,14 @@ class BaseConfig(object):
 
 
 class ProductionConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = os.environ['PROD_DATABASE_URL']
+    DATABASE = 'mox_prod'
 
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ['DEV_DATABASE_URL']
+    DATABASE = 'mox_dev'
 
 
 class TestConfig(BaseConfig):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ['TEST_DATABASE_URL']
+    DATABASE = 'mox_test'
