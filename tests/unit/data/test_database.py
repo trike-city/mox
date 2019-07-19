@@ -2,18 +2,13 @@ import pytest
 
 from mox.data import Database
 from config import TestConfig
+from tests.fixtures import database
 
 
-def test_execute():
-    db = Database(TestConfig())
+def test_execute(database):
+    database.execute('CREATE TABLE bad_cards (name text);')
+    database.execute('INSERT INTO bad_cards (name) VALUES (\'Mox Amber\');')
 
-    db.open()
-    db.execute('CREATE TABLE bad_cards (name text);')
-    db.execute('INSERT INTO bad_cards (name) VALUES (\'Mox Amber\');')
-
-    result = db.execute('SELECT * FROM bad_cards;')
-
-    db.rollback()
-    db.close()
+    result = database.execute('SELECT * FROM bad_cards;')
 
     assert result == [{'name': 'Mox Amber'}]

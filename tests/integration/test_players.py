@@ -1,7 +1,7 @@
 import pytest
 import json
 
-from tests.client import client
+from tests.fixtures import client
 
 
 def test_create(client):
