@@ -18,4 +18,3 @@ def client():
 
     os.close(db_fd)
     os.unlink(app.config['DATABASE'])
-
