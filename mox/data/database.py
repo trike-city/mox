@@ -23,11 +23,11 @@ class Database:
             self.cursor.close()
             self.connection.close()
 
-    def execute(self, sql):
+    def execute(self, sql, values=None):
         if not hasattr(self, 'connection'):
             raise ValueError('No connection available. Did you run open()?')
         else:
-            self.cursor.execute(sql)
+            self.cursor.execute(sql, values)
 
             if self.__records_are_available:
                 return self.cursor.fetchall()
