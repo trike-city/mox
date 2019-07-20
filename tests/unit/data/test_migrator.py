@@ -1,6 +1,7 @@
 import pytest
 
 from mox.data import Migrator
+from mox.data import Migration
 from tests.fixtures import database
 from pathlib import Path
 
@@ -33,3 +34,21 @@ def test_migrate_latest_when_schema_versions_table_already_exits(database):
     result = database.execute('SELECT * FROM schema_versions;')
 
     assert result == [{'version': 2}]
+
+
+def test_perform_migration(database):
+    migrator = Migrator(database=database, dir_path=path)
+    migration = Migration(path / '1_create_bad_decks.py')
+    migrator.perform_migration(migration)
+
+    versions = database.execute('SELECT * FROM schema_versions;')
+    table_exists = database.execute("""
+    SELECT EXISTS (
+        SELECT 1
+        FROM information_schema.tables
+        WHERE table_name = 'bad_decks'
+    );
+    """)
+
+    assert versions == [{'version': 1}]
+    assert table_exists == [{'exists': True}]

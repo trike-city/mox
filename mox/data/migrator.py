@@ -12,6 +12,11 @@ class Migrator:
         self.__create_schema_versions_table_if_needed()
         self.__store_new_version(migrations[-1])
 
+    def perform_migration(self, migration):
+        migration.up(self.database)
+        self.__create_schema_versions_table_if_needed()
+        self.__store_new_version(migration)
+
     def __create_schema_versions_table_if_needed(self):
         self.database.execute('CREATE TABLE IF NOT EXISTS schema_versions (version INT);')
 
