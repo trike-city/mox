@@ -15,3 +15,11 @@ def test_migrate_latest_performs_migrations(database):
     result = database.execute('SELECT * FROM bad_decks;')
 
     assert result == [{'name': 'horse tribal'}]
+
+
+def test_migrate_latest_persists_schema_version(database):
+    migrator = Migrator(database=database, dir_path=path)
+    migrator.migrate_latest()
+    result = database.execute('SELECT * FROM schema_versions;')
+
+    assert result == [{'version': 2}]

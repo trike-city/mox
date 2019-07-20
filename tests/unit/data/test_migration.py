@@ -4,8 +4,12 @@ from mox.data import Migration
 from pathlib import Path
 
 
-def test_name():
-    path = Path('/user/src/mox/migrations/1_some_migration.py')
-    migration = Migration(path)
+path = Path('/user/src/mox/migrations/1_some_migration.py')
 
-    assert migration.name == '1_some_migration'
+
+def test_name():
+    assert Migration(path).name == '1_some_migration'
+
+
+def test_version():
+    assert Migration(path).version == 1
