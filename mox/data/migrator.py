@@ -13,7 +13,7 @@ class Migrator:
         self.__store_new_version(migrations[-1])
 
     def __create_schema_versions_table_if_needed(self):
-        self.database.execute('CREATE TABLE schema_versions (version INT);')
+        self.database.execute('CREATE TABLE IF NOT EXISTS schema_versions (version INT);')
 
     def __find_migrations(self):
         file_paths = [f for f in self.dir_path.glob('**/*') if f.is_file()]
