@@ -11,9 +11,9 @@ class Migrator:
         self.database = database
         self.dir_path = dir_path
         self.schema = Schema(database)
-        self.schema.create_if_needed()
 
     def migrate_latest(self):
+        self.schema.create_if_needed()
         migrations = self.__find_pending_migrations()
 
         if len(migrations) > 0:
@@ -23,6 +23,7 @@ class Migrator:
         return migrations
 
     def perform_migration(self, migration):
+        self.schema.create_if_needed()
         migration.up(self.database)
         self.schema.version = migration.version
 

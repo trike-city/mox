@@ -14,12 +14,12 @@ else:
 config = config.for_key(key)
 
 db = Database(config)
+migrator = Migrator(db)
+logger = MigrationLogger(config)
+
 db.open()
 
-migrator = Migrator(db)
 migrations = migrator.migrate_latest()
-
-logger = MigrationLogger(config)
 logger.log_performed_migrations(migrations)
 
 db.close()
