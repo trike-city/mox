@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import sys
+
 from mox.data import Database, Migrator
 from config import DevelopmentConfig
 from pathlib import Path
