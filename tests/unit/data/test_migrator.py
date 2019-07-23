@@ -2,12 +2,14 @@ import pytest
 
 from mox.data import Migrator, Migration, Schema
 from tests.fixtures import database
+from tests.decorators import with_clean_schema_version
 from pathlib import Path
 
 
 path = Path().absolute() / 'tests/unit/data/migrations'
 
 
+@with_clean_schema_version
 def test_migrate_latest_performs_migrations(database):
     migrator = Migrator(database=database, dir_path=path)
     migrator.migrate_latest()
@@ -17,6 +19,7 @@ def test_migrate_latest_performs_migrations(database):
     assert result == [{'name': 'horse tribal'}]
 
 
+@with_clean_schema_version
 def test_migrate_latest_persists_schema_version(database):
     migrator = Migrator(database=database, dir_path=path)
     migrator.migrate_latest()
@@ -24,6 +27,7 @@ def test_migrate_latest_persists_schema_version(database):
     assert Schema(database).version == 2
 
 
+@with_clean_schema_version
 def test_subsequent_migrate_latest(database):
     migrator = Migrator(database=database, dir_path=path)
     migrator.migrate_latest()
@@ -32,6 +36,7 @@ def test_subsequent_migrate_latest(database):
     assert Schema(database).version == 2
 
 
+@with_clean_schema_version
 def test_perform_migration(database):
     migrator = Migrator(database=database, dir_path=path)
     migration = Migration(path / '1_create_bad_decks.py')
@@ -49,6 +54,7 @@ def test_perform_migration(database):
     assert Schema(database).version == 1
 
 
+@with_clean_schema_version
 def test_migrate_latest_when_some_migrations_have_been_performed(database):
     migrator = Migrator(database=database, dir_path=path)
     migration = Migration(path / '1_create_bad_decks.py')
@@ -58,6 +64,7 @@ def test_migrate_latest_when_some_migrations_have_been_performed(database):
     assert Schema(database).version == 2
 
 
+@with_clean_schema_version
 def test_migrate_latest_returns_migrations(database):
     migrator = Migrator(database=database, dir_path=path)
     migrations = migrator.migrate_latest()

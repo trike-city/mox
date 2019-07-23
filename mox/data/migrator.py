@@ -25,8 +25,14 @@ class Migrator:
     def __find_pending_migrations(self):
         file_paths = [f for f in self.dir_path.glob('**/*') if f.is_file()]
         migrations = [Migration(path) for path in file_paths]
-        migrations.reverse()
-        return [m for m in migrations if m.version > self.schema.version]
+        pending_migrations = [m for m in migrations if m.version > self.schema.version]
+        return self.__sort_by_versions(pending_migrations)
+
+    def __sort_by_versions(self, migrations):
+        def version(migration):
+            return migration.version
+
+        return sorted(migrations, key=version)
 
     def __perform_migrations(self, migrations):
         for m in migrations:

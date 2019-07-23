@@ -1,9 +1,11 @@
 import pytest
 
 from tests.fixtures import database
+from tests.decorators import with_clean_schema_version
 from mox.data import Schema
 
 
+@with_clean_schema_version
 def test_create_if_needed(database):
     schema = Schema(database)
     schema.create_if_needed()
@@ -12,6 +14,7 @@ def test_create_if_needed(database):
     assert versions == [{'version': 0}]
 
 
+@with_clean_schema_version
 def test_version_getter(database):
     schema = Schema(database)
     schema.create_if_needed()
@@ -19,6 +22,7 @@ def test_version_getter(database):
     assert schema.version == 0
 
 
+@with_clean_schema_version
 def test_version_setter(database):
     schema = Schema(database)
     schema.create_if_needed()
