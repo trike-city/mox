@@ -56,3 +56,11 @@ def test_migrate_latest_when_some_migrations_have_been_performed(database):
     migrator.migrate_latest()
 
     assert Schema(database).version == 2
+
+
+def test_migrate_latest_returns_migrations(database):
+    migrator = Migrator(database=database, dir_path=path)
+    migrations = migrator.migrate_latest()
+    names = [m.name for m in migrations]
+
+    assert names == ['1_create_bad_decks', '2_add_name_to_bad_decks']

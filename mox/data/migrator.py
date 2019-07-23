@@ -16,6 +16,8 @@ class Migrator:
             self.__perform_migrations(migrations)
             self.schema.version = migrations[-1].version
 
+        return migrations
+
     def perform_migration(self, migration):
         migration.up(self.database)
         self.schema.version = migration.version
