@@ -1,9 +1,13 @@
 from .migration import Migration
 from .schema import Schema
+from pathlib import Path
+
+
+__migration_path__ = Path().absolute() / 'mox/data/migrations'
 
 
 class Migrator:
-    def __init__(self, database, dir_path):
+    def __init__(self, database, dir_path=__migration_path__):
         self.database = database
         self.dir_path = dir_path
         self.schema = Schema(database)
