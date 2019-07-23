@@ -11,7 +11,18 @@ class MigrationLogger:
     def log_performed_migrations(self, migrations):
         header = [
             f'Environment: {self.config.name}',
-            f'Performed {len(migrations)} migrations:'
+            self.__migrations_label(migrations)
         ]
         lines = header + [m.path_str for m in migrations]
         self.out.log('\n'.join(lines))
+
+    def __migrations_label(self, migrations):
+        count = len(migrations)
+        label = f'Performed {count} '
+
+        if count == 1:
+            label += 'migration:'
+        else:
+            label += 'migrations:'
+
+        return label
