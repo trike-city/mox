@@ -5,7 +5,7 @@ from pathlib import Path
 from mox.data import MigrationLogger, Migration
 
 
-class TestOutput:
+class MockOutput:
     def __init__(self):
         self.value = None
 
@@ -14,7 +14,7 @@ class TestOutput:
 
 
 def test_output_with_migrations():
-    output = TestOutput()
+    output = MockOutput()
     logger = MigrationLogger(out=output, config=DevelopmentConfig())
 
     logger.log_performed_migrations([
