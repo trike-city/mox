@@ -3,18 +3,11 @@ import tempfile
 import pytest
 
 from mox import create_app
+from config import TestConfig
 
 
 @pytest.fixture
 def client():
-    db_fd, database_config = tempfile.mkstemp()
-
-    app = create_app({
-        'DATABASE': database_config,
-        'TESTING': True
-    })
-
+    config = TestConfig()
+    app = create_app(config)
     yield app.test_client()
-
-    os.close(db_fd)
-    os.unlink(app.config['DATABASE'])
