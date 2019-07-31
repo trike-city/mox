@@ -33,19 +33,11 @@ class TestConfig(BaseConfig):
 
 
 def for_key(key):
-    switch = {
-        'd': DevelopmentConfig,
-        'dev': DevelopmentConfig,
-        'development': DevelopmentConfig,
-        'p': ProductionConfig,
-        'prod': ProductionConfig,
-        'production': ProductionConfig,
-        't': TestConfig,
-        'test': TestConfig,
-        None: DevelopmentConfig,
-        '': DevelopmentConfig
-    }
-    config_class = switch.get(key)
+    if key is None:
+        return DevelopmentConfig()
+
+    configs = [DevelopmentConfig, ProductionConfig, TestConfig]
+    config_class = next(c for c in configs if c.NAME.startswith(key))
 
     if config_class is None:
         raise Exception(f'No config for key: {key}.')
