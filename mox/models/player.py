@@ -6,6 +6,7 @@ class Player:
 
     def serialize(self):
         return {
+            'id': self.id,
             'firstname': self.firstname,
             'lastname': self.lastname
         }
