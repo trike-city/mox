@@ -3,8 +3,6 @@ from .controller import Controller
 
 
 class PlayersController(Controller):
-    resource = 'players'
-
     def __init__(self, database):
         self.repo = PlayerRepository(database)
 
