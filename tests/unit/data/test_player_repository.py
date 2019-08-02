@@ -1,5 +1,3 @@
-import pytest
-
 from mox.data import PlayerRepository
 from tests.fixtures import database
 

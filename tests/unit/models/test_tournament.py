@@ -1,5 +1,3 @@
-import pytest
-
 from mox.models import Tournament
 
 
