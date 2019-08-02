@@ -1,6 +1,6 @@
-from mox import create_app
+from mox import create_app, Dependencies
 from config import DevelopmentConfig
 
-
 config = DevelopmentConfig()
-app = create_app(config)
+deps = Dependencies(config)
+app = create_app(deps)
