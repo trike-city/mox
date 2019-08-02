@@ -2,7 +2,7 @@ import os
 
 from flask import Flask
 from mox.data import Database
-from mox.controllers import PlayersController, tournaments_controller
+from mox.controllers import PlayersController, TournamentsController
 
 
 class Dependencies:
@@ -21,7 +21,7 @@ def create_app(deps):
 
 def __register_routes(app, deps):
     PlayersController(deps.database).register(app)
-    app.register_blueprint(tournaments_controller.blueprint)
+    TournamentsController(deps.database).register(app)
 
 
 def __create_app_folder(app):

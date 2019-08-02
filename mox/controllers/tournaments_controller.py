@@ -1,10 +1,13 @@
 from mox.models import Tournament
-from flask import Blueprint, request, make_response, jsonify
-
-blueprint = Blueprint('tournaments', __name__)
+from .controller import Controller
 
 
-@blueprint.route('/tournaments', methods=('POST',))
-def create():
-    tournament = Tournament.create(request.json)
-    return make_response(jsonify(tournament.serialize()), 201)
+class TournamentsController(Controller):
+    resource = 'tournaments'
+
+    def __init__(self, database):
+        self.database = database
+
+    def create(self, request):
+        tournament = Tournament.create(request.json)
+        return self.response(tournament.serialize(), 201)
