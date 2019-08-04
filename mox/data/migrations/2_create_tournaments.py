@@ -11,5 +11,6 @@ def up(database):
     OWNED BY tournaments.id;
     """)
 
+
 def down(database):
     database.execute('DROP TABLE tournaments;')
