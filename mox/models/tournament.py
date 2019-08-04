@@ -2,9 +2,9 @@ from enum import Enum
 
 
 class Tournament:
-    def __init__(self, name, competitors):
+    def __init__(self, id, name):
+        self.id = id
         self.name = name
-        self.competitors = competitors
 
     @staticmethod
     def create(attributes):
