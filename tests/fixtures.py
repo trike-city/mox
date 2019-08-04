@@ -7,10 +7,17 @@ from config import TestConfig
 
 @pytest.fixture
 def client():
-    from mox import create_app
+    from mox import create_app, Dependencies
+
     config = TestConfig()
-    app = create_app(config)
-    yield app.test_client()
+    deps = Dependencies(config)
+    client = create_app(deps).test_client()
+    client.database = deps.database
+
+    yield client
+
+    deps.database.rollback()
+    deps.database.close()
 
 
 @pytest.fixture

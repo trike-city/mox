@@ -1,5 +1,3 @@
-import pytest
-
 from mox.data import Database
 from config import TestConfig
 from tests.fixtures import database

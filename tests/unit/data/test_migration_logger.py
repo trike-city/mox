@@ -1,5 +1,3 @@
-import pytest
-
 from config import DevelopmentConfig
 from pathlib import Path
 from mox.data import MigrationLogger, Migration

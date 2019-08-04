@@ -1,10 +1,11 @@
-from mox.models import Player
-from flask import Blueprint, request, make_response, jsonify
-
-blueprint = Blueprint('players', __name__)
+from mox.data import PlayerRepository
+from .controller import Controller
 
 
-@blueprint.route('/players', methods=('POST',))
-def create():
-    player = Player.create(request.json)
-    return make_response(jsonify(player.serialize()), 201)
+class PlayersController(Controller):
+    def __init__(self, database):
+        self.repo = PlayerRepository(database)
+
+    def create(self, request):
+        player = self.repo.create(request.json)
+        return self.response(player.serialize(), 201)

@@ -17,7 +17,7 @@ class Database:
 
     def close(self):
         if not hasattr(self, 'connection'):
-            raise ValueError('No connection to close. Did you run open()?')
+            pass
         else:
             self.connection.commit()
             self.cursor.close()
@@ -25,18 +25,18 @@ class Database:
 
     def execute(self, sql, values=None):
         if not hasattr(self, 'connection'):
-            raise ValueError('No connection available. Did you run open()?')
-        else:
-            self.cursor.execute(sql, values)
+            self.open()
 
-            if self.__records_are_available:
-                return self.cursor.fetchall()
-            else:
-                return True
+        self.cursor.execute(sql, values)
+
+        if self.__records_are_available:
+            return self.cursor.fetchall()
+        else:
+            return True
 
     def rollback(self):
         if not hasattr(self, 'connection'):
-            raise ValueError('No connection available. Did you run open()?')
+            pass
         else:
             self.connection.rollback()
 

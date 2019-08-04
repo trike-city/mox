@@ -1,5 +1,3 @@
-import pytest
-
 from mox.data import Migration
 from pathlib import Path
 

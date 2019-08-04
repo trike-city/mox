@@ -1,5 +1,3 @@
-import pytest
-
 from mox.data import Migrator, Migration, Schema
 from tests.fixtures import database
 from tests.decorators import with_clean_schema_version
