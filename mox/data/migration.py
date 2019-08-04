@@ -3,8 +3,12 @@ class Migration:
         self.path = path
 
     @property
+    def path_str(self):
+        return str(self.path)
+
+    @property
     def name(self):
-        file_name = str(self.path).split('/')[-1]
+        file_name = self.path_str.split('/')[-1]
         return file_name.split('.')[0]
 
     @property

@@ -20,3 +20,14 @@ The application is using PostgreSQL. Perform the following commands to create th
 createdb mox_dev
 createdb mox_test
 ```
+
+To perform the migrations execute the following script:
+```shell
+./scripts/migrate_latest.py
+```
+
+This script will default to the `development` environment. You can specify the environment with an argument:
+```shell
+./scripts/migrate_latest.py test
+./scripts/migrate_latest.py prod
+```

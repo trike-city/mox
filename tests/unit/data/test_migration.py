@@ -13,3 +13,7 @@ def test_name():
 
 def test_version():
     assert Migration(path).version == 1
+
+
+def test_path_str():
+    assert Migration(path).path_str == '/user/src/mox/migrations/1_some_migration.py'
