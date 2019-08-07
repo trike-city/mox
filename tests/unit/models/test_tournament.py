@@ -1,1 +1,0 @@
-from mox.models import Tournament
