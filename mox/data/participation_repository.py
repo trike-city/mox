@@ -8,8 +8,18 @@ class ParticipationRepository:
         self.database = database
 
     def create_many(self, tournament, players):
-        sql = f'INSERT INTO {self.__TABLE_NAME} (tournament_id, player_id) VALUES (%s, %s) RETURNING *;'
+        self.__create_participations(tournament=tournament, players=players)
+        return self.__find_participations(tournament)
+
+    def __create_participations(self, tournament, players):
+        sql = f"""
+        INSERT INTO {self.__TABLE_NAME} (tournament_id, player_id)
+        VALUES (%s, %s);
+        """
         values = [(tournament.id, p.id,) for p in players]
         self.database.execute(sql, values)
-        result = self.database.execute(f'SELECT * FROM {self.__TABLE_NAME} WHERE tournament_id = %s;', (tournament.id,))
-        return [Participation(id=dict['id'], tournament_id=dict['tournament_id'], player_id=dict['player_id']) for dict in result]
+
+    def __find_participations(self, tournament):
+        sql = f'SELECT * FROM {self.__TABLE_NAME} WHERE tournament_id = %s;'
+        result = self.database.execute(sql, (tournament.id,))
+        return [Participation.build(attribute) for attribute in result]
