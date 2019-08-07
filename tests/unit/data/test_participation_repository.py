@@ -23,3 +23,11 @@ def test_create_many_persists_participations(database):
     repo.create_many(tournament=tournament, players=players)
     result = database.execute('SELECT * FROM participations;')
     assert len(result) == len(players)
+
+
+def test_find_by_tournament(database):
+    repo = ParticipationRepository(database)
+    repo.create_many(tournament=tournament, players=players)
+    result = repo.find_by_tournament(tournament)
+    assert len(result) == 2
+    assert [p.player_id for p in result] == [1, 2]

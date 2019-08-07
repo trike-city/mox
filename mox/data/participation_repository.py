@@ -9,7 +9,12 @@ class ParticipationRepository:
 
     def create_many(self, tournament, players):
         self.__create_participations(tournament=tournament, players=players)
-        return self.__find_participations(tournament)
+        return self.find_by_tournament(tournament)
+
+    def find_by_tournament(self, tournament):
+        sql = f'SELECT * FROM {self.__TABLE_NAME} WHERE tournament_id = %s;'
+        result = self.database.execute(sql, (tournament.id,))
+        return [Participation.build(attribute) for attribute in result]
 
     def __create_participations(self, tournament, players):
         sql = f"""
@@ -18,8 +23,3 @@ class ParticipationRepository:
         """
         values = [(tournament.id, p.id,) for p in players]
         self.database.execute(sql, values)
-
-    def __find_participations(self, tournament):
-        sql = f'SELECT * FROM {self.__TABLE_NAME} WHERE tournament_id = %s;'
-        result = self.database.execute(sql, (tournament.id,))
-        return [Participation.build(attribute) for attribute in result]
