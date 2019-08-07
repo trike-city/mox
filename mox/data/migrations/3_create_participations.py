@@ -4,7 +4,7 @@ def up(database):
 
     CREATE TABLE participations (
         id integer NOT NULL DEFAULT nextval('participations_id_seq'),
-        player_id integer NOT NULL, 
+        player_id integer NOT NULL,
         tournament_id integer NOT NULL
     );
 
