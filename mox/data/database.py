@@ -27,7 +27,10 @@ class Database:
         if not hasattr(self, 'connection'):
             self.open()
 
-        self.cursor.execute(sql, values)
+        if isinstance(values, list):
+            self.cursor.executemany(sql, values)
+        else:
+            self.cursor.execute(sql, values)
 
         if self.__records_are_available:
             return self.cursor.fetchall()
