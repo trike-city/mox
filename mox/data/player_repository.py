@@ -18,6 +18,10 @@ class PlayerRepository:
         result = self.database.execute(sql, values)
         return self.__create_instance(result[0])
 
+    def find_one(self, id):
+        result = self.__finder.find_one(id)
+        return self.__create_instance(result)
+
     def find_many(self, ids):
         result = self.__finder.find_many(ids)
         return [self.__create_instance(attr) for attr in result]

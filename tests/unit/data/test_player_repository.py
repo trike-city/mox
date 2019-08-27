@@ -30,6 +30,12 @@ def test_find_many(database):
     p3 = repo.create({'firstname': 'Big', 'lastname': 'Daddy'})
     players = repo.find_many([p1.id, p2.id])
 
-    assert len(players) == 2
-    assert players[0].firstname == 'Trike'
-    assert players[1].firstname == 'Tetravus'
+    assert players == [p1, p2]
+
+
+def test_find_one(database):
+    repo = PlayerRepository(database)
+    player = repo.create(attributes)
+    result = repo.find_one(player.id)
+
+    assert result == player
