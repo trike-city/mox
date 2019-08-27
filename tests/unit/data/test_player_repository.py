@@ -21,3 +21,15 @@ def test_create_persist_player(database):
 
     assert result['firstname'] == 'Richard'
     assert result['lastname'] == 'Garfield'
+
+
+def test_find_many(database):
+    repo = PlayerRepository(database)
+    p1 = repo.create({'firstname': 'Trike', 'lastname': 'Three'})
+    p2 = repo.create({'firstname': 'Tetravus', 'lastname': 'Four'})
+    p3 = repo.create({'firstname': 'Big', 'lastname': 'Daddy'})
+    players = repo.find_many([p1.id, p2.id])
+
+    assert len(players) == 2
+    assert players[0].firstname == 'Trike'
+    assert players[1].firstname == 'Tetravus'
