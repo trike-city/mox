@@ -1,4 +1,5 @@
 from mox.models import Player
+from .record_finder import RecordFinder
 
 
 class PlayerRepository:
@@ -18,8 +19,7 @@ class PlayerRepository:
         return self.__create_instance(result[0])
 
     def find_many(self, ids):
-        sql = f'SELECT * FROM {self.__TABLE_NAME} WHERE id in %s;'
-        result = self.database.execute(sql, (tuple(ids),))
+        result = self.__finder.find_many(ids)
         return [self.__create_instance(attr) for attr in result]
 
     def __create_instance(self, attributes):
@@ -28,3 +28,7 @@ class PlayerRepository:
             firstname=attributes['firstname'],
             lastname=attributes['lastname']
         )
+
+    @property
+    def __finder(self):
+        return RecordFinder(database=self.database, table=self.__TABLE_NAME)
