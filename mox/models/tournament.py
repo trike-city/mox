@@ -1,6 +1,3 @@
-from enum import Enum
-
-
 class Tournament:
     def __init__(self, id, name):
         self.id = id
@@ -17,3 +14,10 @@ class Tournament:
         return {
             'name': self.name
         }
+
+    def __eq__(self, other):
+        if isinstance(other, Tournament):
+            return self.id == other.id \
+                and self.name == other.name
+        else:
+            return False
