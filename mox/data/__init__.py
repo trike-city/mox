@@ -5,3 +5,4 @@ from .schema import Schema
 from .migration_logger import MigrationLogger
 from .player_repository import PlayerRepository
 from .participation_repository import ParticipationRepository
+from .tournament_repository import TournamentRepository
